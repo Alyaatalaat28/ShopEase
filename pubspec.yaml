@@ -41,7 +41,6 @@ dependencies:
   dio: ^5.1.2
   hexcolor: ^3.0.1
   shared_preferences: ^2.1.1
-  webview_flutter: ^4.2.0
   smooth_page_indicator: ^1.1.0
   fluttertoast: ^8.2.1
   carousel_slider: ^4.2.1

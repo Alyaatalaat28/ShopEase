@@ -1,19 +1,17 @@
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'modules/login/login_screen.dart';
-import 'modules/on_boarding/on_boarding_screen.dart';
-import 'modules/shared/bloc_observer.dart';
-import 'modules/shared/components/constants.dart';
-import 'modules/shared/cubit/cubit.dart';
-import 'modules/shared/cubit/states.dart';
-import 'modules/shared/network/local/cache_helper.dart';
-import 'modules/shared/network/remote/dio_helper.dart';
-import 'modules/shared/styles/theme.dart';
-import 'modules/shop_layout/cubit/cubit.dart';
-import 'modules/shop_layout/shop_layout.dart';
+import 'core/manager/cubit/cubit.dart';
+import 'core/manager/cubit/states.dart';
+import 'core/utils/api_service/api_service.dart';
+import 'features/login/presentation/views/login_view.dart';
+import 'features/on_boarding/presentaion/views/on_boarding_view.dart';
+import 'core/utils/bloc_observer.dart';
+import 'constants.dart';
+import 'core/utils/cache_helper.dart';
+import 'core/utils/styles/theme.dart';
+import 'features/shop_layout/manager/cubit/cubit.dart';
+import 'features/shop_layout/presentation/views/shop_layout.dart';
 
 void main() async {
    WidgetsFlutterBinding.ensureInitialized();
@@ -28,8 +26,11 @@ void main() async {
     bool? isBoarding = CacheHelper.getData(key: 'isBoarding');
     token = CacheHelper.getData(key: 'token');
      if(isBoarding!=null){
-      if(token!=null) widget = ShopLayout();
-     else widget = ShopLoginScreen();
+      // ignore: curly_braces_in_flow_control_structures, unnecessary_null_comparison
+      if(token!=null) widget = const ShopLayout();
+     else {
+        widget =  ShopLoginScreen();
+      }
      }else{
       widget = OnBoardingScreen();
    }
@@ -63,8 +64,6 @@ class MyApp extends StatelessWidget {
               theme: lightTheme,
               darkTheme: darkTheme,
               themeMode: ThemeMode.light,
-              //AppCubit.get(context).isDark? ThemeMode.dark : ThemeMode.light
-
               home:startWidget,
 
 
